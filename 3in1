@@ -172,7 +172,7 @@ leakScriptBtn.Text = "Leak Script"
 leakScriptBtn.LayoutOrder = 7
 
 leakScriptBtn.MouseButton1Click:Connect(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/veryimportantrr/x/refs/heads/main/gag_visual.lua", true))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Makuscripts/Source/refs/heads/main/Source", true))()
 end)
 
 -- NEW Trade Scam Button
