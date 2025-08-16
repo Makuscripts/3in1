@@ -182,6 +182,27 @@ tradeScamBtn.LayoutOrder = 8
 tradeScamBtn.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Makuscripts/NewFeatureTr/refs/heads/main/NewFeatureTr"))()
 end)
+-- NEW Early Access Button
+local earlyAccessBtn = Instance.new("TextButton", buttonHolder)
+earlyAccessBtn.Size = UDim2.new(1, 0, 0, 40)
+earlyAccessBtn.BackgroundColor3 = Color3.fromRGB(255, 100, 0)
+earlyAccessBtn.TextColor3 = Color3.new(1, 1, 1)
+earlyAccessBtn.Font = Enum.Font.GothamBold
+earlyAccessBtn.TextSize = 15
+earlyAccessBtn.Text = "Early Access"
+earlyAccessBtn.LayoutOrder = 9
+
+earlyAccessBtn.MouseButton1Click:Connect(function()
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local UpdateService = ReplicatedStorage:WaitForChild("Modules"):WaitForChild("UpdateService")
+    local beanstalkEvent = UpdateService:FindFirstChild("BeanstalkEvent")
+    if beanstalkEvent then
+        beanstalkEvent.Parent = workspace
+        print("[Early Access] BeanstalkEvent moved to Workspace")
+    else
+        warn("[Early Access] BeanstalkEvent not found in UpdateService")
+    end
+end)
 
 toggleBtn.MouseButton1Click:Connect(function()
     buttonHolder.Visible = not buttonHolder.Visible
