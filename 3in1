@@ -14,7 +14,7 @@ local eggChances = {
     ["Mythical Egg"] = {{name="Grey Mouse",chance=36},{name="Brown Mouse",chance=27},{name="Squirrel",chance=27},{name="Red Giant Ant",chance=9},{name="Red Fox",chance=2}},
     ["Night Egg"] = {{name="Hedgehog",chance=49},{name="Mole",chance=23.5},{name="Frog",chance=17.63},{name="Echo Frog",chance=8.23},{name="Night Owl",chance=3.53},{name="Raccoon",chance=0.2}},
     ["Oasis Egg"] = {{name="Meerkat",chance=45},{name="Sand Snake",chance=34.5},{name="Axolotl",chance=15},{name="Hyacinth Macaw",chance=5},{name="Fennec Fox",chance=0.5}},
-    ["Paradise Egg"] = {{name="Ostrich",chance=40},{name="Peacock",chance=30},{name="Capybara",chance=21},{name="Scarlet Macaw",chance=8},{name="Mimic Octopus",chance=1}},
+    ["Paradise Egg"] = {{name="Ostrich",chance=40},{name="Peacock",chance=30},{name="Capybara",chance=21},{name="Scarlet Macaw",chance=8},{name="Mimic Octopus",chance=9}},
     ["Primal Egg"] = {{name="Parasaurolophus",chance=35},{name="Iguanodon",chance=32.5},{name="Pachycephalosaurus",chance=28},{name="Dilophosaurus",chance=3},{name="Ankylosaurus",chance=1},{name="Spinosaurus (Divine)",chance=0.5}},
     ["Zen Egg"] = {
         {name="Shiba Inu",chance=49},
