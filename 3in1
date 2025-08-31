@@ -24,6 +24,13 @@ local eggChances = {
         {name="Kappa",chance=3.53},
         {name="Kitsune",chance=0.2}
     },
+["Enchanted Egg"] = {
+    {name = "Ladybug", chance = 50},
+    {name = "Pixie", chance = 29},
+    {name = "Imp", chance = 15},
+    {name = "Glimmering Sprite", chance = 5},
+    {name = "Cockatrice", chance = 1},
+},
 ["Sprout Egg"] = {
     {name="Dairy Cow", chance=50},
     {name="Jackalope", chance=31},
