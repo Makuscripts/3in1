@@ -152,24 +152,6 @@ mutationTitle.TextSize = 16
 mutationTitle.TextColor3 = Color3.fromRGB(255, 100, 100)
 mutationTitle.LayoutOrder = 4
 
-local mutationRerollBtn = Instance.new("TextButton", buttonHolder)
-mutationRerollBtn.Size = UDim2.new(1, 0, 0, 40)
-mutationRerollBtn.BackgroundColor3 = Color3.fromRGB(180, 0, 0)
-mutationRerollBtn.TextColor3 = Color3.new(1, 1, 1)
-mutationRerollBtn.Font = Enum.Font.GothamBold
-mutationRerollBtn.TextSize = 15
-mutationRerollBtn.Text = "Mutation Reroll"
-mutationRerollBtn.LayoutOrder = 5
-
-local mutationToggleBtn = Instance.new("TextButton", buttonHolder)
-mutationToggleBtn.Size = UDim2.new(1, 0, 0, 40)
-mutationToggleBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
-mutationToggleBtn.TextColor3 = Color3.new(1, 1, 1)
-mutationToggleBtn.Font = Enum.Font.GothamBold
-mutationToggleBtn.TextSize = 15
-mutationToggleBtn.Text = "Toggle Mutation"
-mutationToggleBtn.LayoutOrder = 6
-
 local leakScriptBtn = Instance.new("TextButton", buttonHolder)
 leakScriptBtn.Size = UDim2.new(1, 0, 0, 40)
 leakScriptBtn.BackgroundColor3 = Color3.fromRGB(220, 0, 0)
@@ -388,85 +370,5 @@ autoAgeBtn.MouseButton1Click:Connect(function()
 
 	autoAgeBtn.Text = "Auto Age (hold pet)"
 	isCooldown = false
-end)
-
--- Mutation functions
-local RunService = game:GetService("RunService")
-
-local mutations = {
-	"Shiny", "Inverted", "Frozen", "Windy", "Golden", "Mega", "Tiny",
-	"Tranquil", "IronSkin", "Radiant", "Rainbow", "Shocked", "Ascended"
-}
-
-local currentMutation = mutations[math.random(#mutations)]
-local espVisible = false
-
--- Find mutation machine model in workspace
-local function findMachine()
-	for _, obj in pairs(Workspace:GetDescendants()) do
-		if obj:IsA("Model") and obj.Name:lower():find("mutation") then
-			return obj
-		end
-	end
-end
-
-local machine = findMachine()
-if not machine then
-	warn("Pet Mutation Machine not found.")
-else
-	local basePart = machine:FindFirstChildWhichIsA("BasePart")
-	if not basePart then
-		warn("Pet Mutation Machine BasePart not found.")
-	else
-		if basePart:FindFirstChild("MutationESP") then
-			basePart.MutationESP:Destroy()
-		end
-
-		local espGui = Instance.new("BillboardGui")
-		espGui.Name = "MutationESP"
-		espGui.Adornee = basePart
-		espGui.Size = UDim2.new(0, 200, 0, 40)
-		espGui.StudsOffset = Vector3.new(0, 3, 0)
-		espGui.AlwaysOnTop = true
-		espGui.Parent = basePart
-		espGui.Enabled = espVisible
-
-		local espLabel = Instance.new("TextLabel", espGui)
-		espLabel.Size = UDim2.new(1, 0, 1, 0)
-		espLabel.BackgroundTransparency = 1
-		espLabel.Font = Enum.Font.GothamBold
-		espLabel.TextSize = 24
-		espLabel.TextStrokeTransparency = 0.3
-		espLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
-		espLabel.Text = currentMutation
-
-		-- Animate rainbow text color when visible
-		local hue = 0
-		RunService.RenderStepped:Connect(function()
-			if espVisible then
-				hue = (hue + 0.01) % 1
-				espLabel.TextColor3 = Color3.fromHSV(hue, 1, 1)
-			end
-		end)
-
-		local function rerollMutation()
-			espLabel.Text = "⏳ Rerolling..."
-			local duration = 2
-			local interval = 0.1
-			for i = 1, math.floor(duration / interval) do
-				espLabel.Text = mutations[math.random(#mutations)]
-				task.wait(interval)
-			end
-			currentMutation = mutations[math.random(#mutations)]
-			espLabel.Text = currentMutation
-		end
-
-		local function toggleESP()
-			espVisible = not espVisible
-			espGui.Enabled = espVisible
-		end
-
-		mutationRerollBtn.MouseButton1Click:Connect(rerollMutation)
-		mutationToggleBtn.MouseButton1Click:Connect(toggleESP)
 	end
 end
